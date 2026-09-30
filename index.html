@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="Работа в магазинах, на складах, транспорте, производстве и офисе Магнита. Найди работу рядом с домом.">
+<title>Магнит Работа — найди работу по душе</title>
+<style>
+/* ===== VARIABLES ===== */
+:root {
+  --color-primary: #E30613;
+  --color-primary-dark: #C00511;
+  --color-text: #1A1A1A;
+  --color-text-secondary: #666666;
+  --color-bg: #FFFFFF;
+  --color-bg-light: #F5F5F5;
+  --color-bg-warm: #FFF8F0;
+  --color-border: #E5E5E5;
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --radius: 16px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-hover: 0 8px 32px rgba(0,0,0,0.12);
+  --transition: all 0.3s ease;
+  --container: 1200px;
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-family); color: var(--color-text); background: var(--color-bg); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+
+/* ===== UTILITIES ===== */
+.container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+.section-title { font-size: 40px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+.section-subtitle { font-size: 18px; color: var(--color-text-secondary); max-width: 600px; }
+
+/* ===== HEADER ===== */
+.header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-border); z-index: 1000; }
+.header__inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.header__logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 20px; }
+.header__logo-icon { width: 36px; height: 36px; background: var(--color-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: 800; }
+.header__location { display: flex; align-items: center; gap: 6px; color: var(--color-text-secondary); font-size: 14px; cursor: pointer; padding: 6px 12px; border-radius: var(--radius-sm); transition: var(--transition); }
+.header__location:hover { background: var(--color-bg-light); }
+.header__nav { display: flex; gap: 32px; }
+.header__nav a { font-size: 15px; font-weight: 500; color: var(--color-text-secondary); transition: var(--transition); position: relative; }
+.header__nav a:hover { color: var(--color-text); }
+.header__nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--color-primary); transition: var(--transition); }
+.header__nav a:hover::after { width: 100%; }
+.header__mobile-btn { display: none; flex-direction: column; gap: 5px; padding: 8px; background: none; border: none; cursor: pointer; }
+.header__mobile-btn span { display: block; width: 24px; height: 2px; background: var(--color-text); transition: var(--transition); border-radius: 2px; }
+
+/* ===== HERO ===== */
+.hero { padding: 140px 0 80px; background: linear-gradient(135deg, #FFF8F0 0%, #FFFFFF 50%, #FFF0F0 100%); position: relative; overflow: hidden; }
+.hero__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.hero__badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(227, 6, 19, 0.1); color: var(--color-primary); padding: 8px 16px; border-radius: 100px; font-size: 14px; font-weight: 600; margin-bottom: 24px; }
+.hero__title { font-size: 56px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+.hero__title span { color: var(--color-primary); }
+.hero__desc { font-size: 20px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 32px; max-width: 480px; }
+.hero__buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border-radius: 12px; font-size: 16px; font-weight: 600; transition: var(--transition); cursor: pointer; border: none; text-align: center; }
+.btn--primary { background: var(--color-primary); color: white; box-shadow: 0 4px 16px rgba(227, 6, 19, 0.3); }
+.btn--primary:hover { background: var(--color-primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(227, 6, 19, 0.4); }
+.btn--secondary { background: white; color: var(--color-text); border: 1.5px solid var(--color-border); }
+.btn--secondary:hover { border-color: var(--color-text); transform: translateY(-2px); }
+.hero__visual { position: relative; display: flex; justify-content: center; align-items: center; }
+.hero__image { width: 100%; max-width: 520px; aspect-ratio: 4/3; background: linear-gradient(135deg, #FFE5E5 0%, #FFF0E5 100%); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 80px; position: relative; box-shadow: var(--shadow); }
+.hero__stats-float { position: absolute; background: white; padding: 12px 20px; border-radius: 12px; box-shadow: var(--shadow); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.hero__stats-float--1 { top: 20px; left: 0; animation: float 3s ease-in-out infinite; }
+.hero__stats-float--2 { bottom: 40px; right: 0; animation: float 3s ease-in-out infinite 0.5s; }
+.hero__stats-float--3 { top: 50%; left: -20px; animation: float 3s ease-in-out infinite 1s; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* ===== DIRECTIONS ===== */
+.directions { padding: 80px 0; }
+.directions__header { margin-bottom: 40px; }
+.directions__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.direction-card { background: var(--color-bg-light); border-radius: var(--radius); padding: 28px; transition: var(--transition); cursor: pointer; position: relative; overflow: hidden; }
+.direction-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.direction-card__icon { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.direction-card__title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.direction-card__desc { font-size: 14px; color: var(--color-text-secondary); line-height: 1.5; }
+
+/* ===== MAP SECTION ===== */
+.map-section { padding: 80px 0; background: var(--color-bg-warm); }
+.map-section__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.map-section__content .section-subtitle { margin-top: 12px; }
+.map-placeholder { background: white; border-radius: 24px; height: 400px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.map-placeholder::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 40%, rgba(227,6,19,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 60%, rgba(255,200,100,0.1) 0%, transparent 50%); }
+.map-placeholder__content { text-align: center; position: relative; z-index: 1; }
+.map-placeholder__icon { font-size: 64px; margin-bottom: 16px; }
+.map-placeholder__text { font-size: 18px; font-weight: 600; color: var(--color-text-secondary); }
+
+/* ===== STATS ===== */
+.stats { padding: 80px 0; background: var(--color-text); color: white; }
+.stats__header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+.stats__header h2 { font-size: 36px; font-weight: 700; line-height: 1.3; }
+.stats__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.stat-item { text-align: center; padding: 32px; background: rgba(255,255,255,0.05); border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.1); transition: var(--transition); }
+.stat-item:hover { background: rgba(255,255,255,0.08); transform: translateY(-4px); }
+.stat-item__number { font-size: 48px; font-weight: 800; color: var(--color-primary); line-height: 1; margin-bottom: 12px; }
+.stat-item__label { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+/* ===== BENEFITS ===== */
+.benefits { padding: 80px 0; }
+.benefits__header { text-align: center; margin-bottom: 60px; }
+.benefits__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+.benefit-card { display: flex; gap: 20px; padding: 32px; background: var(--color-bg-light); border-radius: var(--radius); transition: var(--transition); }
+.benefit-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.benefit-card__icon { width: 56px; height: 56px; min-width: 56px; background: white; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.benefit-card__title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.benefit-card__desc { font-size: 15px; color: var(--color-text-secondary); line-height: 1.5; }
+
+/* ===== STORIES ===== */
+.stories { padding: 80px 0; background: var(--color-bg-light); }
+.stories__header { text-align: center; margin-bottom: 60px; }
+.stories__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.story-card { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); }
+.story-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.story-card__photo { height: 200px; background: linear-gradient(135deg, #FFE5E5, #FFF0E5); display: flex; align-items: center; justify-content: center; font-size: 64px; }
+.story-card__content { padding: 24px; }
+.story-card__name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.story-card__role { font-size: 14px; color: var(--color-primary); font-weight: 600; margin-bottom: 16px; }
+.story-card__quote { font-size: 15px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.story-card__link { display: inline-flex; align-items: center; gap: 6px; color: var(--color-primary); font-weight: 600; font-size: 14px; transition: var(--transition); }
+.story-card__link:hover { gap: 10px; }
+
+/* ===== FORMATS ===== */
+.formats { padding: 80px 0; }
+.formats__header { text-align: center; margin-bottom: 48px; }
+.formats__tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 40px; }
+.format-tab { padding: 10px 20px; border-radius: 100px; font-size: 14px; font-weight: 600; background: var(--color-bg-light); color: var(--color-text-secondary); transition: var(--transition); cursor: pointer; border: 2px solid transparent; }
+.format-tab:hover { background: var(--color-border); }
+.format-tab.active { background: var(--color-primary); color: white; }
+.formats__content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; max-width: 900px; margin: 0 auto; }
+.formats__visual { aspect-ratio: 16/10; background: linear-gradient(135deg, #FFF0F0, #FFF8F0); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 80px; box-shadow: var(--shadow); transition: var(--transition); }
+.formats__info h3 { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+.formats__info p { font-size: 16px; color: var(--color-text-secondary); line-height: 1.6; }
+
+/* ===== VACANCIES ===== */
+.vacancies { padding: 80px 0; background: var(--color-bg-light); }
+.vacancies__header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+.vacancies__link { color: var(--color-primary); font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 6px; transition: var(--transition); }
+.vacancies__link:hover { gap: 10px; }
+.vacancies__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.vacancy-card { background: white; border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); transition: var(--transition); }
+.vacancy-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.vacancy-card__title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.vacancy-card__meta { display: flex; gap: 16px; font-size: 14px; color: var(--color-text-secondary); margin-bottom: 16px; flex-wrap: wrap; }
+.vacancy-card__salary { font-size: 20px; font-weight: 700; color: var(--color-primary); margin-bottom: 16px; }
+.vacancy-card__btn { width: 100%; padding: 12px; background: var(--color-bg-light); border-radius: 10px; font-weight: 600; font-size: 14px; transition: var(--transition); border: none; cursor: pointer; }
+.vacancy-card__btn:hover { background: var(--color-primary); color: white; }
+
+/* ===== CAREER ===== */
+.career { padding: 80px 0; }
+.career__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.career__content h2 { font-size: 36px; font-weight: 700; line-height: 1.3; margin-bottom: 16px; }
+.career__content p { font-size: 18px; color: var(--color-text-secondary); margin-bottom: 32px; }
+.career__form { background: var(--color-bg-light); border-radius: var(--radius); padding: 40px; }
+.career__form h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.career__form > p { font-size: 15px; color: var(--color-text-secondary); margin-bottom: 24px; }
+.form-toggle { display: flex; background: white; border-radius: 12px; padding: 4px; margin-bottom: 24px; }
+.form-toggle__btn { flex: 1; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; transition: var(--transition); border: none; cursor: pointer; background: transparent; }
+.form-toggle__btn.active { background: var(--color-primary); color: white; }
+.career__btn { width: 100%; }
+
+/* ===== CONTACTS ===== */
+.contacts { padding: 80px 0; background: var(--color-text); color: white; }
+.contacts__title { font-size: 32px; font-weight: 700; margin-bottom: 40px; }
+.contacts__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
+.contact-group h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+.contact-item { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 15px; flex-wrap: wrap; gap: 8px; }
+.contact-item__name { color: rgba(255,255,255,0.7); }
+.contact-item__value { font-weight: 600; font-variant-numeric: tabular-nums; }
+.contact-item__value a { color: white; transition: var(--transition); }
+.contact-item__value a:hover { color: var(--color-primary); }
+.contacts__bottom { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+.contacts__bottom h4 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.contacts__bottom a { display: block; color: rgba(255,255,255,0.7); padding: 6px 0; font-size: 15px; transition: var(--transition); }
+.contacts__bottom a:hover { color: white; }
+.contacts__support { background: rgba(255,255,255,0.05); border-radius: var(--radius); padding: 32px; text-align: center; }
+.contacts__support p { font-size: 18px; font-weight: 600; margin-bottom: 16px; white-space: pre-line; }
+
+/* ===== FOOTER ===== */
+.footer { padding: 40px 0; background: #0F0F0F; color: rgba(255,255,255,0.5); font-size: 14px; }
+.footer__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer__links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer__links a { transition: var(--transition); }
+.footer__links a:hover { color: white; }
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: white; z-index: 999; padding: 24px; flex-direction: column; gap: 8px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { padding: 16px; font-size: 18px; font-weight: 600; border-radius: 12px; transition: var(--transition); }
+.mobile-menu a:hover { background: var(--color-bg-light); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .directions__grid { grid-template-columns: repeat(2, 1fr); }
+  .vacancies__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .section-title { font-size: 28px; }
+  .header__nav { display: none; }
+  .header__mobile-btn { display: flex; }
+  .hero { padding: 100px 0 60px; }
+  .hero__inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero__title { font-size: 36px; }
+  .hero__desc { font-size: 17px; }
+  .hero__image { max-width: 100%; }
+  .hero__stats-float { font-size: 12px; padding: 8px 14px; }
+  .hero__stats-float--3 { left: 10px; }
+  .map-section__inner { grid-template-columns: 1fr; gap: 40px; }
+  .map-placeholder { height: 300px; }
+  .stats__grid { grid-template-columns: 1fr; gap: 20px; }
+  .stat-item__number { font-size: 36px; }
+  .benefits__grid { grid-template-columns: 1fr; }
+  .benefit-card { flex-direction: column; gap: 16px; }
+  .stories__grid { grid-template-columns: 1fr; }
+  .formats__content { grid-template-columns: 1fr; }
+  .formats__visual { aspect-ratio: 16/9; }
+  .vacancies__header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .vacancies__grid { grid-template-columns: 1fr; }
+  .career__inner { grid-template-columns: 1fr; gap: 40px; }
+  .contacts__grid { grid-template-columns: 1fr; gap: 32px; }
+  .contacts__bottom { grid-template-columns: 1fr; gap: 32px; }
+  .footer__inner { flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .hero__title { font-size: 30px; }
+  .directions__grid { grid-template-columns: 1fr; }
+  .btn { width: 100%; }
+  .hero__buttons { flex-direction: column; }
+  .section-title { font-size: 24px; }
+  .career__form { padding: 24px; }
+  .contact-item { flex-direction: column; gap: 4px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container header__inner">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="#" class="header__logo">
+        <span class="header__logo-icon">M</span>
+        <span>Магнит Работа</span>
+      </a>
+      <div class="header__location">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Краснодар</span>
+      </div>
+    </div>
+    <nav class="header__nav">
+      <a href="#directions">Магазины</a>
+      <a href="#directions">Направления</a>
+      <a href="#career">Стажировки</a>
+      <a href="#contacts">О Магните</a>
+      <a href="#vacancies">Вакансии</a>
+    </nav>
+    <button class="header__mobile-btn" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<nav class="mobile-menu">
+  <a href="#directions" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Магазины</a>
+  <a href="#directions" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Направления</a>
+  <a href="#career" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Стажировки</a>
+  <a href="#contacts" onclick="document.querySelector('.mobile-menu').classList.remove('open')">О Магните</a>
+  <a href="#vacancies" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Вакансии</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <div class="hero__badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Работа №1 в ритейле
+      </div>
+      <h1 class="hero__title">Найдём работу по&nbsp;<span>душе</span></h1>
+      <p class="hero__desc">Работа в магазинах, на складах, транспорте, производстве и офисе — найди своё направление в Магните</p>
+      <div class="hero__buttons">
+        <a href="#career" class="btn btn--primary">Откликнуться</a>
+        <a href="#vacancies" class="btn btn--secondary">Найти вакансию</a>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="hero__image">🏪</div>
+      <div class="hero__stats-float hero__stats-float--1">🛒 33 000+ магазинов</div>
+      <div class="hero__stats-float hero__stats-float--2">👥 300 000+ сотрудников</div>
+      <div class="hero__stats-float hero__stats-float--3">📍 Рядом с домом</div>
+    </div>
+  </div>
+</section>
+
+<!-- DIRECTIONS -->
+<section class="directions" id="directions">
+  <div class="container">
+    <div class="directions__header">
+      <h2 class="section-title">Наши направления</h2>
+      <p class="section-subtitle">Выбери подходящее направление и начни карьеру в одной из крупнейших компаний России</p>
+    </div>
+    <div class="directions__grid">
+      <div class="direction-card">
+        <div class="direction-card__icon">🏪</div>
+        <div class="direction-card__title">Магнит у дома</div>
+        <div class="direction-card__desc">Продуктовые магазины рядом с домом по всей России</div>
+      </div>
+      <div class="direction-card">
+        <div class="direction-card__icon">💄</div>
+        <div class="direction-card__title">М.Косметик</div>
+        <div class="direction-card__desc">Магазины beauty и личной гигиены</div>
+      </div>
+      <div class="direction-card">
+        <div class="direction-card__icon">🏷️</div>
+        <div class="direction-card__title">Дискаунтер В1</div>
+        <div class="direction-card__desc">Формат низких цен и высокого качества</div>
+      </div>
+      <div class="direction-card">
+        <div class="direction-card__icon">⚡</div>
+        <div class="direction-card__title">Заряд</div>
+        <div class="direction-card__desc">Электроника, гаджеты и аксессуары</div>
+      </div>
+      <div class="direction-card">
+        <div class="direction-card__icon">💊</div>
+        <div class="direction-card__title">Магнит Аптека</div>
+        <div class="direction-card__desc">Аптеки и товары для здоровья</div>
+      </div>
+      <div class="direction-card">
+        <div class="direction-card__icon">🏭</div>
+        <div class="direction-card__title">Производство</div>
+        <div class="direction-card__desc">Собственные производственные мощности</div>
+      </div>
+      <div class="direction-card">
+        <div class="direction-card__icon">🚛</div>
+        <div class="direction-card__title">Логистика</div>
+        <div class="direction-card__desc">Склады и транспортные подразделения</div>
+      </div>
+      <div class="direction-card">
+        <div class="direction-card__icon">💻</div>
+        <div class="direction-card__title">IT и Офис</div>
+        <div class="direction-card__desc">Технологии и корпоративные функции</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="container map-section__inner">
+    <div class="map-section__content">
+      <h2 class="section-title">Работа рядом с домом</h2>
+      <p class="section-subtitle">Покажем ближайшие магазины по улице или станции метро. Выбери удобную локацию и начни работать уже завтра.</p>
+    </div>
+    <div class="map-placeholder">
+      <div class="map-placeholder__content">
+        <div class="map-placeholder__icon">🗺️</div>
+        <div class="map-placeholder__text">Интерактивная карта<br>магазинов рядом</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats__header">
+      <h2>Становись частью одного из крупнейших ритейлеров России</h2>
+    </div>
+    <div class="stats__grid">
+      <div class="stat-item">
+        <div class="stat-item__number">300+ тыс.</div>
+        <div class="stat-item__label">сотрудников<br>всего в Магните</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-item__number">19+ млн</div>
+        <div class="stat-item__label">покупателей<br>каждый день</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-item__number">33+ тыс.</div>
+        <div class="stat-item__label">торговых<br>точек</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="container">
+    <div class="benefits__header">
+      <h2 class="section-title">Почему выбирают Магнит</h2>
+    </div>
+    <div class="benefits__grid">
+      <div class="benefit-card">
+        <div class="benefit-card__icon">📍</div>
+        <div>
+          <div class="benefit-card__title">Работа рядом с домом</div>
+          <div class="benefit-card__desc">Найди работу рядом с домом, институтом, школой или детским садом</div>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card__icon">🚀</div>
+        <div>
+          <div class="benefit-card__title">Быстрый карьерный рост</div>
+          <div class="benefit-card__desc">Принимаем без опыта и всему обучаем. Год — и ты директор</div>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card__icon">🎁</div>
+        <div>
+          <div class="benefit-card__title">Бонусы за друзей</div>
+          <div class="benefit-card__desc">Выплачиваем от 8000 ₽ за приведённого друга. Сумма зависит от должности</div>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card__icon">⏰</div>
+        <div>
+          <div class="benefit-card__title">Гибкий график</div>
+          <div class="benefit-card__desc">Полная или частичная занятость, подработки — совмещай с учёбой или другой работой</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section class="stories">
+  <div class="container">
+    <div class="stories__header">
+      <h2 class="section-title">С нами тысячи сотрудников<br>по всей стране</h2>
+    </div>
+    <div class="stories__grid">
+      <div class="story-card">
+        <div class="story-card__photo">👨‍💼</div>
+        <div class="story-card__content">
+          <div class="story-card__name">Дмитрий Барышев</div>
+          <div class="story-card__role">Товаровед</div>
+          <div class="story-card__quote">«Каждый новый рабочий день — это поле для поиска уникальных путей достижения целей, выходящих за рамки стандартных инструкций...»</div>
+          <a href="#" class="story-card__link">Читать полностью →</a>
+        </div>
+      </div>
+      <div class="story-card">
+        <div class="story-card__photo">👩‍💼</div>
+        <div class="story-card__content">
+          <div class="story-card__name">Галина Чупятова</div>
+          <div class="story-card__role">Старший кассир</div>
+          <div class="story-card__quote">«Вдохновляет ощущение потребности во мне со стороны покупателей и руководителя. Я готова работать бесперебойно, зная, что я нужна и полезна...»</div>
+          <a href="#" class="story-card__link">Читать полностью →</a>
+        </div>
+      </div>
+      <div class="story-card">
+        <div class="story-card__photo">👩‍🦰</div>
+        <div class="story-card__content">
+          <div class="story-card__name">Наталья Юртаева</div>
+          <div class="story-card__role">Продавец-универсал</div>
+          <div class="story-card__quote">«Когда покупатель уходит из магазина, он уносит с собой не просто товары, а частичку нашей заботы. И мы получаем нечто большее, чем просто прибыль...»</div>
+          <a href="#" class="story-card__link">Читать полностью →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section class="formats">
+  <div class="container">
+    <div class="formats__header">
+      <h2 class="section-title">Магнит — это целый мир возможностей</h2>
+      <p class="section-subtitle" style="margin:0 auto;text-align:center;">От магазинов у дома до гипермаркетов и аптек — разные форматы, тысячи точек и одна большая команда</p>
+    </div>
+    <div class="formats__tabs">
+      <button class="format-tab active" onclick="showFormat(this,'home')">Магнит у дома</button>
+      <button class="format-tab" onclick="showFormat(this,'cosmetic')">М.Косметик</button>
+      <button class="format-tab" onclick="showFormat(this,'v1')">Дискаунтер В1</button>
+      <button class="format-tab" onclick="showFormat(this,'charge')">Заряд</button>
+      <button class="format-tab" onclick="showFormat(this,'pharma')">Магнит Аптека</button>
+      <button class="format-tab" onclick="showFormat(this,'hyper')">Гипермаркет</button>
+      <button class="format-tab" onclick="showFormat(this,'prod')">Производство</button>
+      <button class="format-tab" onclick="showFormat(this,'log')">Логистика</button>
+      <button class="format-tab" onclick="showFormat(this,'it')">IT и Офис</button>
+    </div>
+    <div class="formats__content" id="formatContent">
+      <div class="formats__visual" id="formatVisual">🏪</div>
+      <div class="formats__info" id="formatInfo">
+        <h3>Магнит у дома</h3>
+        <p>Сеть удобных продуктовых магазинов рядом с домом. Более 20 000 точек по всей России. Работа кассиром, продавцом, товароведом — стабильный доход и удобный график.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VACANCIES -->
+<section class="vacancies" id="vacancies">
+  <div class="container">
+    <div class="vacancies__header">
+      <div>
+        <h2 class="section-title">Горящие вакансии</h2>
+      </div>
+      <a href="#" class="vacancies__link">Смотреть все вакансии →</a>
+    </div>
+    <div class="vacancies__grid">
+      <div class="vacancy-card">
+        <div class="vacancy-card__title">Продавец-кассир</div>
+        <div class="vacancy-card__meta">
+          <span>📍 Краснодар</span>
+          <span>🕐 Полный день</span>
+        </div>
+        <div class="vacancy-card__salary">от 45 000 ₽</div>
+        <button class="vacancy-card__btn">Откликнуться</button>
+      </div>
+      <div class="vacancy-card">
+        <div class="vacancy-card__title">Товаровед</div>
+        <div class="vacancy-card__meta">
+          <span>📍 Краснодар</span>
+          <span>🕐 Полный день</span>
+        </div>
+        <div class="vacancy-card__salary">от 55 000 ₽</div>
+        <button class="vacancy-card__btn">Откликнуться</button>
+      </div>
+      <div class="vacancy-card">
+        <div class="vacancy-card__title">Кладовщик</div>
+        <div class="vacancy-card__meta">
+          <span>📍 Краснодар</span>
+          <span>🕐 Сменный график</span>
+        </div>
+        <div class="vacancy-card__salary">от 50 000 ₽</div>
+        <button class="vacancy-card__btn">Откликнуться</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER -->
+<section class="career" id="career">
+  <div class="container career__inner">
+    <div class="career__content">
+      <h2>Строй карьеру<br>в Магните</h2>
+      <p>Выбери подходящее направление и присоединяйся к команде одного из крупнейших работодателей страны.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="#" class="btn btn--primary">Заполнить анкету</a>
+        <a href="#" class="btn btn--secondary">Узнать больше</a>
+      </div>
+    </div>
+    <div class="career__form">
+      <h3>Заполни анкету для отклика</h3>
+      <p>Ищешь вакансии в Москве или в другом городе?</p>
+      <div class="form-toggle">
+        <button class="form-toggle__btn active" onclick="toggleCity(this,true)">Да, в Москве</button>
+        <button class="form-toggle__btn" onclick="toggleCity(this,false)">Другой город</button>
+      </div>
+      <button class="btn btn--primary career__btn">Продолжить</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section class="contacts" id="contacts">
+  <div class="container">
+    <h2 class="contacts__title">Контакты центра подбора</h2>
+    <div class="contacts__grid">
+      <div class="contact-group">
+        <h4>Розница</h4>
+        <div class="contact-item"><span class="contact-item__name">Магнит у дома</span><span class="contact-item__value"><a href="tel:88007006303">8 (800) 700-63-03</a></span></div>
+        <div class="contact-item"><span class="contact-item__name">Гипермаркет</span><span class="contact-item__value"><a href="tel:88002005308">8 (800) 200-53-08</a></span></div>
+        <div class="contact-item"><span class="contact-item__name">Заряд от Магнита</span><span class="contact-item__value"><a href="tel:88002005348">8 (800) 200-53-48</a></span></div>
+      </div>
+      <div class="contact-group">
+        <h4>Специализированные</h4>
+        <div class="contact-item"><span class="contact-item__name">Аптека</span><span class="contact-item__value"><a href="tel:88006007271">8 (800) 600-72-71</a></span></div>
+        <div class="contact-item"><span class="contact-item__name">Магнит Косметик</span><span class="contact-item__value"><a href="tel:88002005318">8 (800) 200-53-18</a></span></div>
+        <div class="contact-item"><span class="contact-item__name">Дискаунтеры «В1»</span><span class="contact-item__value"><a href="tel:88002008474">8 (800) 200-84-74</a></span></div>
+      </div>
+      <div class="contact-group">
+        <h4>Логистика и производство</h4>
+        <div class="contact-item"><span class="contact-item__name">Курьеры</span><span class="contact-item__value"><a href="tel:89582850460">8 (958) 285-04-60</a></span></div>
+        <div class="contact-item"><span class="contact-item__name">Склад и транспорт</span><span class="contact-item__value"><a href="tel:88003006777">8 (800) 300-67-77</a></span></div>
+        <div class="contact-item"><span class="contact-item__name">Производства</span><span class="contact-item__value"><a href="tel:88002005794">8 (800) 200-57-94</a></span></div>
+      </div>
+    </div>
+    <div class="contacts__bottom">
+      <div>
+        <h4>Кандидату</h4>
+        <a href="#">Смотреть вакансии</a>
+        <a href="#">Записаться на собеседование</a>
+      </div>
+      <div>
+        <h4>О компании</h4>
+        <a href="#">Вопросы и ответы</a>
+        <a href="#">Блог</a>
+      </div>
+      <div class="contacts__support">
+        <p>Остались вопросы?
+Напиши нам, и мы поможем</p>
+        <a href="#" class="btn btn--primary" style="padding:12px 24px;font-size:14px;">Написать в поддержку</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>© Официальный сайт сети «Магнит» 2010‑2026 АО «Тандер»</div>
+    <div class="footer__links">
+      <a href="#">Политика cookie</a>
+      <a href="#">Персональные данные</a>
+      <a href="#">Условия для соискателей от 16 лет</a>
+      <a href="#">Работа в других городах</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Format tabs
+const formatData = {
+  home: { icon: '🏪', title: 'Магнит у дома', desc: 'Сеть удобных продуктовых магазинов рядом с домом. Более 20 000 точек по всей России. Работа кассиром, продавцом, товароведом — стабильный доход и удобный график.' },
+  cosmetic: { icon: '💄', title: 'М.Косметик', desc: 'Магазины beauty и личной гигиены. Более 4 000 точек. Работа консультантом, кассиром, администратором — скидки сотрудникам и приятная атмосфера.' },
+  v1: { icon: '🏷️', title: 'Дискаунтер В1', desc: 'Формат низких цен и высокого качества. Динамично развивающаяся сеть. Карьерный рост от продавца до управляющего магазином.' },
+  charge: { icon: '⚡', title: 'Заряд', desc: 'Электроника, гаджеты и аксессуары. Современный формат, молодая команда, возможность работать с технологиями и новинками рынка.' },
+  pharma: { icon: '💊', title: 'Магнит Аптека', desc: 'Аптеки и товары для здоровья. Требуется фармацевтическое образование для некоторых позиций. Стабильный спрос и социально значимая работа.' },
+  hyper: { icon: '🏢', title: 'Гипермаркет', desc: 'Крупные торговые центры с широким ассортиментом. Работа в различных отделах — от продуктов до непродовольственных товаров.' },
+  prod: { icon: '🏭', title: 'Производство', desc: 'Собственные производственные мощности — хлебозаводы, мясопереработка, молочные заводы. Технологи, операторы, упаковщики.' },
+  log: { icon: '🚛', title: 'Логистика', desc: 'Распределительные центры и транспортные подразделения. Водители, грузчики, кладовщики, логисты. Корпоративный транспорт.' },
+  it: { icon: '💻', title: 'IT и Офис', desc: 'IT-разработка, аналитика, маркетинг, HR, финансы, юриспруденция. Работа в головном офисе с лучшими условиями для профессионалов.' }
+};
+
+function showFormat(btn, key) {
+  document.querySelectorAll('.format-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const d = formatData[key];
+  document.getElementById('formatVisual').textContent = d.icon;
+  document.getElementById('formatInfo').innerHTML = '<h3>' + d.title + '</h3><p>' + d.desc + '</p>';
+}
+
+function toggleCity(btn, isMoscow) {
+  document.querySelectorAll('.form-toggle__btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Close mobile menu on scroll
+window.addEventListener('scroll', () => {
+  const mm = document.querySelector('.mobile-menu');
+  if (mm.classList.contains('open')) mm.classList.remove('open');
+});
+</script>
+
+</body>
+</html>
